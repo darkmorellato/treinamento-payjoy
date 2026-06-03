@@ -180,7 +180,7 @@ export const FinalQuizRenderer: React.FC<FinalQuizRendererProps> = ({ onClose })
                   {activeQuestion.question}
                 </h3>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div className="quiz-options-container" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   {activeQuestion.options.map((opt, oIdx) => {
                     const isSelected = selectedAns === opt;
                     const isCorrectChoice = opt === activeQuestion.correctAnswer;
@@ -204,6 +204,7 @@ export const FinalQuizRenderer: React.FC<FinalQuizRendererProps> = ({ onClose })
                         key={oIdx}
                         onClick={() => handleSelectAnswer(opt)}
                         disabled={hasSelectedAny}
+                        className={`quiz-option-btn ${isSelected ? 'selected' : ''} ${hasSelectedAny && !isSelected && !isCorrectChoice ? 'hidden-on-answered' : ''}`}
                         style={{
                           padding: '14px 18px',
                           borderRadius: '10px',
@@ -246,7 +247,7 @@ export const FinalQuizRenderer: React.FC<FinalQuizRendererProps> = ({ onClose })
               </div>
 
               {/* Feedback & Explanation Right */}
-              <div className="quiz-explanation-column">
+              <div className={`quiz-explanation-column ${selectedAns !== null ? 'answered' : 'unanswered'}`}>
                 {selectedAns === null ? (
                   <div style={{ textAlign: 'center', opacity: 0.4 }}>
                     <HelpCircle size={70} strokeWidth={1} style={{ color: 'var(--text-light)', margin: '0 auto 16px' }} />

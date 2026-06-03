@@ -490,35 +490,43 @@ strong {
     overflow: hidden !important;
   }
 
-  /* Make slide content area scrollable vertically to prevent cuts */
+  /* Make slide content area fit without vertical scrolling */
   .slide-viewport.responsive-mode .slide-content-area {
     flex: 1;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch;
-    padding-top: 76px !important; /* Avoid overlap with absolute top utilities */
-    padding-bottom: 84px !important; /* Avoid overlap with absolute bottom controls */
-    display: block; /* Disable height limits on contents */
+    overflow-y: hidden !important; /* Block vertical scroll */
+    padding-top: 60px !important; /* Avoid overlap with absolute top utilities */
+    padding-bottom: 68px !important; /* Avoid overlap with absolute bottom controls */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
 
-  /* Stack split layouts vertically */
+  /* Layout wrappers fit 100% height and align center */
   .split-layout {
     flex-direction: column !important;
-    height: auto !important;
-    min-height: 100%;
+    height: 100% !important;
+    width: 100% !important;
+    justify-content: center !important;
   }
 
   .split-left, .split-right {
-    flex: none !important;
+    flex: 1 !important;
     width: 100% !important;
-    height: auto !important;
-    padding: 2rem 1.5rem !important;
+    height: 100% !important;
+    padding: 1.25rem 1.25rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
 
   /* Reduce absolute padding in full layouts */
   .full-layout {
-    padding: 2rem 1.5rem !important;
-    height: auto !important;
-    min-height: 100%;
+    padding: 1.25rem 1.25rem !important;
+    height: 100% !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
 
   /* Reposition Utilities to bottom-left on mobile */
@@ -573,157 +581,346 @@ strong {
 
   /* Make notes drawer overlay less obstructive and scrollable */
   .notes-drawer {
-    max-height: 160px !important;
-    padding: 16px 20px 24px !important;
+    max-height: 140px !important;
+    padding: 12px 16px 20px !important;
     overflow-y: auto !important;
     border-radius: 12px 12px 0 0 !important;
     z-index: 95 !important;
     box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.08) !important;
   }
 
+  .notes-drawer h5 {
+    font-size: 0.8rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .notes-drawer p {
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+  }
+
   /* Responsive Headings Typography (Overriding inline styles) */
   .slide-viewport h1 {
-    font-size: 2.2rem !important;
-    margin-bottom: 12px !important;
+    font-size: 1.8rem !important;
+    margin-bottom: 8px !important;
     line-height: 1.2 !important;
   }
 
   .slide-viewport h2 {
-    font-size: 1.8rem !important;
-    margin-bottom: 12px !important;
+    font-size: 1.4rem !important;
+    margin-bottom: 8px !important;
     line-height: 1.2 !important;
   }
 
   .slide-viewport h3 {
-    font-size: 1.5rem !important;
-    margin-bottom: 12px !important;
+    font-size: 1.25rem !important;
+    margin-bottom: 8px !important;
     line-height: 1.25 !important;
   }
 
   .slide-viewport h4 {
-    font-size: 1.15rem !important;
-    margin-bottom: 8px !important;
+    font-size: 1rem !important;
+    margin-bottom: 6px !important;
   }
 
   .slide-viewport p {
-    font-size: 0.95rem !important;
-    line-height: 1.5 !important;
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
   }
 
-  /* Scale down decorative illustrations and background circles */
-  .slide-viewport svg[size="180"], 
-  .slide-viewport svg[size="160"], 
-  .slide-viewport svg[size="140"] {
-    width: 100px !important;
-    height: 100px !important;
+  /* Hide decorative illustrations on mobile to save vertical height */
+  .split-left.split-35, 
+  .split-left.split-40, 
+  .split-right.split-40,
+  .slide-header-icon {
+    display: none !important;
   }
 
-  .split-right div[style*="width: 320px"],
-  .split-right div[style*="width: 340px"],
-  .split-right div[style*="width: 280px"],
-  .split-right div[style*="width: 260px"],
-  .split-left div[style*="width: 260px"] {
-    width: 200px !important;
-    height: 200px !important;
+  /* Text columns expand to full width when illustrations are hidden */
+  .split-left.split-60, 
+  .split-right.split-60, 
+  .split-right.split-65,
+  .split-left.split-55,
+  .split-right.split-45 {
+    width: 100% !important;
+    flex: 1 !important;
   }
 
-  /* Responsive Containers */
-  .cards-container {
-    flex-direction: column !important;
-    gap: 16px !important;
-    margin-top: 16px !important;
+  /* Mobile Horizontal Carousels */
+  .cards-container,
+  .objection-grid-container,
+  .closing-cards-container {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 12px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 8px 4px !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+    margin-bottom: 0 !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Hide scrollbar Firefox */
   }
 
-  .cards-container .glass-card {
-    padding: 24px 20px !important;
+  .cards-container::-webkit-scrollbar,
+  .objection-grid-container::-webkit-scrollbar,
+  .closing-cards-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
+  }
+
+  .cards-container .glass-card,
+  .objection-grid-container .glass-card,
+  .closing-cards-container > div {
+    flex: 0 0 85% !important;
+    max-width: 85% !important;
+    scroll-snap-align: center;
+    padding: 16px 16px !important;
+    margin: 0 !important;
+    height: auto !important;
+  }
+
+  .cards-container .glass-card h4,
+  .objection-grid-container .glass-card h4,
+  .closing-cards-container h5 {
+    font-size: 1rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  .cards-container .glass-card p,
+  .objection-grid-container .glass-card p,
+  .closing-cards-container p {
+    font-size: 0.8rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .cards-container .glass-card div[style*="width: 50px"],
+  .cards-container .glass-card div[style*="width: 32px"] {
+    width: 36px !important;
+    height: 36px !important;
+    margin-bottom: 12px !important;
+    border-radius: 8px !important;
+  }
+
+  .cards-container .glass-card div[style*="width: 50px"] svg {
+    width: 18px !important;
+    height: 18px !important;
   }
 
   /* Timeline Slide Adaptation */
   .timeline-container {
-    flex-direction: column !important;
-    gap: 24px !important;
-    align-items: flex-start !important;
-    padding-left: 20px !important;
-    margin-top: 20px !important;
-    margin-bottom: 20px !important;
-    border-left: 3px solid var(--accent-orange) !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 12px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 8px 4px !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+    margin-bottom: 0 !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    border-left: none !important;
+    padding-left: 0 !important;
+    scrollbar-width: none;
+  }
+
+  .timeline-container::-webkit-scrollbar {
+    display: none;
   }
 
   /* Hide the horizontal timeline path svg */
-  .slide-viewport svg[viewBox="0 0 1000 100"] {
+  .timeline-svg-container {
     display: none !important;
   }
 
   .timeline-step-item {
-    text-align: left !important;
-    padding: 0 !important;
-    margin-top: 0 !important;
-    margin-bottom: 8px !important;
+    flex: 0 0 75% !important;
+    max-width: 75% !important;
+    scroll-snap-align: center;
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 12px 16px !important;
+    box-shadow: var(--shadow-sm);
     display: flex !important;
-    flex-direction: row !important;
+    flex-direction: column !important;
     align-items: flex-start !important;
-    gap: 16px !important;
-    width: 100% !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    text-align: left !important;
   }
 
-  .timeline-step-item:nth-child(even) {
-    margin-top: 0 !important;
-  }
-
-  .timeline-step-item > div:first-child {
+  .timeline-step-item .timeline-number-circle {
     margin-bottom: 0 !important;
-    flex-shrink: 0 !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .timeline-step-item h4 {
+    font-size: 0.95rem !important;
+    margin-bottom: 0 !important;
+  }
+
+  .timeline-step-item p {
+    font-size: 0.78rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Compact timeline warning box */
+  .timeline-warning-box {
+    margin-top: 12px !important;
+    padding: 10px 14px !important;
+    border-left-width: 4px !important;
+  }
+
+  .timeline-warning-box p {
+    font-size: 0.78rem !important;
+    line-height: 1.4 !important;
   }
 
   /* Objection Interactive / Grid Slides */
-  .objection-grid-container {
+  .objection-split-layout {
+    padding: 1rem 1.25rem !important;
+    height: 100% !important;
+    display: flex !important;
     flex-direction: column !important;
-    gap: 16px !important;
+    justify-content: center !important;
   }
 
-  .objection-grid-container .glass-card {
-    padding: 24px 20px !important;
+  .objection-options-container {
+    gap: 8px !important;
+    margin-top: 10px !important;
   }
 
-  .closing-cards-container {
+  .objection-option-btn {
+    padding: 10px 14px !important;
+    font-size: 0.8rem !important;
+    line-height: 1.35 !important;
+  }
+
+  /* Hide unselected options when solved on mobile */
+  .hidden-on-solved {
+    display: none !important;
+  }
+
+  /* Feedback Column on Objections */
+  .objection-feedback-column.unsolved {
+    display: none !important;
+  }
+
+  .objection-feedback-column.solved {
+    display: flex !important;
     flex-direction: column !important;
-    gap: 12px !important;
+    width: 100% !important;
+    flex: none !important;
+    border-left: none !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+    padding: 12px 0 0 0 !important;
+    margin-top: 10px !important;
+  }
+
+  .objection-feedback-column.solved h4 {
+    font-size: 0.85rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  .objection-feedback-column.solved p {
+    font-size: 0.85rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .objection-tactic-box {
+    margin-bottom: 12px !important;
+    padding: 10px 14px !important;
+  }
+
+  .objection-tactic-box p {
+    font-size: 0.78rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .closing-quote-box {
+    padding-left: 12px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .closing-quote-box p {
+    font-size: 0.95rem !important;
+    line-height: 1.45 !important;
   }
 
   /* Quiz final screen styles */
   .quiz-intro-stats {
     flex-direction: column !important;
-    gap: 12px !important;
-    text-align: center !important;
+    gap: 8px !important;
+    padding: 10px 14px !important;
+    margin-bottom: 20px !important;
+    text-align: left !important;
   }
 
   .quiz-intro-stats > div {
     border-left: none !important;
     padding-left: 0 !important;
+    font-size: 0.85rem !important;
   }
 
   .quiz-question-column {
-    gap: 16px !important;
+    gap: 12px !important;
   }
 
-  .quiz-explanation-column {
+  .quiz-option-btn {
+    padding: 10px 14px !important;
+    font-size: 0.8rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .hidden-on-answered {
+    display: none !important;
+  }
+
+  .quiz-explanation-column.unanswered {
+    display: none !important;
+  }
+
+  .quiz-explanation-column.answered {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    flex: none !important;
     border-left: none !important;
-    border-top: 1px solid rgba(0,0,0,0.05) !important;
-    padding-left: 0 !important;
-    padding-top: 24px !important;
-    margin-top: 16px !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+    padding: 12px 0 0 0 !important;
+    margin-top: 10px !important;
+  }
+
+  .quiz-explanation-column.answered h5 {
+    font-size: 0.85rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .quiz-explanation-column.answered p {
+    font-size: 0.78rem !important;
+    line-height: 1.4 !important;
   }
 
   .quiz-results-box {
-    padding: 16px 24px !important;
-    margin-bottom: 24px !important;
+    padding: 12px 20px !important;
+    margin-bottom: 16px !important;
+    gap: 4px !important;
   }
 
-  /* Make quiz layouts scroll naturally */
+  .quiz-results-box h3 {
+    font-size: 2.2rem !important;
+  }
+
+  /* Make quiz layouts fit cleanly */
   .slide-viewport.responsive-mode .full-layout {
     display: flex !important;
     flex-direction: column !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
   }
 }
 

@@ -227,13 +227,13 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
           initial="hidden"
           animate="visible"
         >
-          <div className="split-layout" style={{ height: 'auto', marginBottom: '30px' }}>
+          <div className="split-layout slide-header-layout" style={{ height: 'auto', marginBottom: '30px' }}>
             <div style={{ flex: 1.5 }}>
               <motion.h2 variants={itemVariants} style={{ fontSize: '2.6rem', marginBottom: '12px' }}>{slide.title}</motion.h2>
               {slide.subtitle && <motion.p variants={itemVariants} style={{ fontSize: '1.15rem' }}>{slide.subtitle}</motion.p>}
             </div>
             {IconComponent && (
-              <div style={{ flex: 0.5, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+              <div className="slide-header-icon" style={{ flex: 0.5, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                 <motion.div variants={imageVariants} style={{ position: 'relative' }}>
                   <IconComponent size={80} strokeWidth={1} style={{ color: 'var(--accent-orange)', opacity: 0.8 }} />
                   <div style={{
@@ -324,6 +324,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
           
           <div style={{ position: 'relative', marginTop: '65px', marginBottom: '45px' }}>
             <svg 
+              className="timeline-svg-container"
               style={{
                 position: 'absolute',
                 top: '-40px',
@@ -378,21 +379,24 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
                       padding: '0 14px',
                     }}
                   >
-                    <div style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '50%',
-                      backgroundColor: stepColor,
-                      color: '#fff',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontWeight: 700,
-                      fontSize: '0.95rem',
-                      marginBottom: '18px',
-                      boxShadow: `0 6px 14px rgba(0, 0, 0, 0.08)`,
-                      border: '2px solid #ffffff'
-                    }}>
+                    <div 
+                      className="timeline-number-circle"
+                      style={{
+                        width: '36px',
+                        height: '36px',
+                        borderRadius: '50%',
+                        backgroundColor: stepColor,
+                        color: '#fff',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontWeight: 700,
+                        fontSize: '0.95rem',
+                        marginBottom: '18px',
+                        boxShadow: `0 6px 14px rgba(0, 0, 0, 0.08)`,
+                        border: '2px solid #ffffff'
+                      }}
+                    >
                       {idx + 1}
                     </div>
                     <h4 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-dark)', marginBottom: '10px' }}>{step.title}</h4>
@@ -405,6 +409,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
 
           <motion.div 
             variants={itemVariants}
+            className="timeline-warning-box"
             style={{
               background: 'linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%)',
               borderLeft: '6px solid var(--accent-orange)',
@@ -423,7 +428,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
 
     case 'tips':
       return (
-        <div className="split-layout">
+        <div className="split-layout tips-split-layout">
           <div className="split-left bg-alt split-35" style={{ alignItems: 'center', justifyContent: 'center' }}>
             <motion.div 
               variants={imageVariants}
@@ -463,7 +468,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
           >
             <motion.h3 variants={itemVariants} style={{ fontSize: '2.5rem', marginBottom: '32px' }}>{slide.title}</motion.h3>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '26px' }}>
+            <div className="tips-list-container" style={{ display: 'flex', flexDirection: 'column', gap: '26px' }}>
               {slide.tips?.map((tip, idx) => {
                 const tipColor = stepColors[idx % stepColors.length];
 
@@ -506,7 +511,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
     case 'objection2':
       if (!slide.quiz) return null;
       return (
-        <div className="split-layout">
+        <div className="split-layout objection-split-layout">
           <motion.div 
             className="split-left split-55 bg-main"
             variants={containerVariants}
@@ -540,7 +545,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
             </div>
             
             {/* Interactive Options list */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
+            <div className="objection-options-container" style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
               {slide.quiz.options.map((opt, idx) => {
                 const isSelected = selectedIdx === idx;
                 
@@ -562,6 +567,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
                     variants={itemVariants}
                     onClick={() => handleOptionClick(idx, opt.isCorrect)}
                     disabled={showSolution && !isSelected}
+                    className={`objection-option-btn ${isSelected ? 'selected' : ''} ${showSolution && !isSelected ? 'hidden-on-solved' : ''}`}
                     style={{
                       padding: '14px 18px',
                       borderRadius: '10px',
@@ -592,7 +598,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
           </motion.div>
 
           <motion.div 
-            className="split-right split-45"
+            className={`split-right split-45 objection-feedback-column ${showSolution ? 'solved' : 'unsolved'}`}
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -636,6 +642,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
                 </p>
 
                 <div 
+                  className="objection-tactic-box"
                   style={{
                     background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
                     borderLeft: '5px solid var(--accent-blue)',
@@ -736,7 +743,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
 
     case 'closing':
       return (
-        <div className="split-layout">
+        <div className="split-layout closing-split-layout">
           <motion.div 
             className="split-left split-60"
             variants={containerVariants}
@@ -748,6 +755,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
             
             <motion.div 
               variants={itemVariants}
+              className="closing-quote-box"
               style={{
                 borderLeft: '4px solid var(--accent-orange)',
                 paddingLeft: '24px',

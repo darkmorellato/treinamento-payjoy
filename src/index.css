@@ -1,3 +1,7 @@
+html {
+  font-size: 16px !important;
+}
+
 :root {
   --bg-main: #fcfbfa; /* Cleaner off-white background */
   --bg-alt: #f3f0e8;
@@ -128,7 +132,7 @@ body {
 .slide-content-area {
   flex: 1;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
   z-index: 2;
 }
 

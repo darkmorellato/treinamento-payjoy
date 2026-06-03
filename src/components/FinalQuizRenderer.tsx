@@ -90,14 +90,12 @@ export const FinalQuizRenderer: React.FC<FinalQuizRendererProps> = ({ onClose })
               Você concluiu os slides do treinamento! Agora é a hora de validar seus conhecimentos. O quiz contém **20 questões** dinâmicas sobre processos, segurança e quebra de objeções.
             </p>
 
-            <div style={{ 
+            <div className="quiz-intro-stats" style={{ 
               backgroundColor: 'var(--bg-alt)', 
               padding: '20px 30px', 
               borderRadius: '12px', 
               marginBottom: '40px',
               border: '1px solid rgba(0,0,0,0.05)',
-              display: 'flex',
-              gap: '30px',
               fontSize: '0.95rem'
             }}>
               <div><strong>Total de questões:</strong> 20</div>
@@ -106,7 +104,7 @@ export const FinalQuizRenderer: React.FC<FinalQuizRendererProps> = ({ onClose })
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '16px' }}>
+            <div className="closing-cards-container" style={{ gap: '16px' }}>
               <button 
                 onClick={onClose}
                 style={{
@@ -177,7 +175,7 @@ export const FinalQuizRenderer: React.FC<FinalQuizRendererProps> = ({ onClose })
             {/* Core Question & Layout */}
             <div className="split-layout" style={{ flex: 1, gap: '40px', alignItems: 'center', margin: '0' }}>
               {/* Question & Options Left */}
-              <div style={{ flex: 1.2, display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div className="quiz-question-column">
                 <h3 style={{ fontSize: '1.65rem', color: 'var(--text-dark)', lineHeight: '1.3', fontWeight: 700 }}>
                   {activeQuestion.question}
                 </h3>
@@ -248,15 +246,7 @@ export const FinalQuizRenderer: React.FC<FinalQuizRendererProps> = ({ onClose })
               </div>
 
               {/* Feedback & Explanation Right */}
-              <div style={{ 
-                flex: 0.8, 
-                height: '100%', 
-                display: 'flex', 
-                flexDirection: 'column', 
-                justifyContent: 'center',
-                borderLeft: '1px solid rgba(0,0,0,0.05)',
-                paddingLeft: '40px'
-              }}>
+              <div className="quiz-explanation-column">
                 {selectedAns === null ? (
                   <div style={{ textAlign: 'center', opacity: 0.4 }}>
                     <HelpCircle size={70} strokeWidth={1} style={{ color: 'var(--text-light)', margin: '0 auto 16px' }} />
@@ -360,17 +350,7 @@ export const FinalQuizRenderer: React.FC<FinalQuizRendererProps> = ({ onClose })
             </p>
 
             {/* Score box */}
-            <div style={{
-              background: 'var(--bg-alt)',
-              padding: '24px 48px',
-              borderRadius: '16px',
-              boxShadow: 'var(--shadow-sm)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '6px',
-              marginBottom: '40px'
-            }}>
+            <div className="quiz-results-box">
               <span style={{ fontSize: '0.9rem', color: 'var(--text-light)', fontWeight: 600 }}>Sua Pontuação</span>
               <h3 style={{ fontSize: '3rem', color: isPassed ? 'var(--accent-green)' : '#ef4444', fontWeight: 800 }}>
                 {score} <span style={{ fontSize: '1.5rem', color: 'var(--text-light)' }}>/ {payjoyQuizData.length}</span>
@@ -380,7 +360,7 @@ export const FinalQuizRenderer: React.FC<FinalQuizRendererProps> = ({ onClose })
               </span>
             </div>
 
-            <div style={{ display: 'flex', gap: '16px' }}>
+            <div className="closing-cards-container" style={{ gap: '16px' }}>
               <button 
                 onClick={onClose}
                 style={{

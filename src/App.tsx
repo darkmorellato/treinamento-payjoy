@@ -16,6 +16,7 @@ export default function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [scale, setScale] = useState(1);
+  const [isResponsive, setIsResponsive] = useState(false);
 
   // Background Audio State - Default to true to trigger autoplay
   const [isPlaying, setIsPlaying] = useState(true);
@@ -90,12 +91,18 @@ export default function App() {
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
 
-      // Calculate scale to fit width and height with padding
-      const scaleX = windowWidth / targetWidth;
-      const scaleY = windowHeight / targetHeight;
-      const nextScale = Math.min(scaleX, scaleY) * 0.95;
+      const isMobileOrTablet = windowWidth < 1024 || windowHeight < 700;
+      setIsResponsive(isMobileOrTablet);
 
-      setScale(Math.max(nextScale, 0.15));
+      if (isMobileOrTablet) {
+        setScale(1);
+      } else {
+        // Calculate scale to fit width and height with padding
+        const scaleX = windowWidth / targetWidth;
+        const scaleY = windowHeight / targetHeight;
+        const nextScale = Math.min(scaleX, scaleY) * 0.95;
+        setScale(Math.max(nextScale, 0.15));
+      }
     };
 
     window.addEventListener('resize', handleResize);
@@ -200,8 +207,8 @@ export default function App() {
 
       {/* 16:9 Viewport */}
       <div 
-        className="slide-viewport"
-        style={{ transform: `scale(${scale})` }}
+        className={`slide-viewport ${isResponsive ? 'responsive-mode' : ''}`}
+        style={isResponsive ? {} : { transform: `scale(${scale})` }}
       >
         {/* Top Utility Controls (Music & Notes) - Hidden in Quiz Mode */}
         {!isQuizMode && (

@@ -392,3 +392,226 @@ strong {
   0% { transform: scaleY(0.2); }
   100% { transform: scaleY(1); }
 }
+
+/* ==========================================
+   Responsive Adaptations (Tablet & Mobile)
+   ========================================== */
+
+@media (max-width: 1024px) {
+  /* Fluid Viewport on smaller screens */
+  .slide-viewport.responsive-mode {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Make slide content area scrollable vertically to prevent cuts */
+  .slide-viewport.responsive-mode .slide-content-area {
+    flex: 1;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 76px !important; /* Avoid overlap with absolute top utilities */
+    padding-bottom: 84px !important; /* Avoid overlap with absolute bottom controls */
+    display: block; /* Disable height limits on contents */
+  }
+
+  /* Stack split layouts vertically */
+  .split-layout {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 100%;
+  }
+
+  .split-left, .split-right {
+    flex: none !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 2rem 1.5rem !important;
+  }
+
+  /* Reduce absolute padding in full layouts */
+  .full-layout {
+    padding: 2rem 1.5rem !important;
+    height: auto !important;
+    min-height: 100%;
+  }
+
+  /* Reposition Top & Bottom overlays */
+  .utilities-overlay {
+    top: 16px !important;
+    right: 16px !important;
+    gap: 8px !important;
+  }
+
+  .controls-overlay {
+    bottom: 20px !important;
+    right: 16px !important;
+    gap: 8px !important;
+  }
+
+  .slide-number {
+    bottom: 30px !important;
+    left: 20px !important;
+  }
+
+  /* Make notes drawer overlay less obstructive and scrollable */
+  .notes-drawer {
+    max-height: 160px !important;
+    padding: 16px 20px 24px !important;
+    overflow-y: auto !important;
+    border-radius: 12px 12px 0 0 !important;
+  }
+
+  /* Responsive Headings Typography (Overriding inline styles) */
+  .slide-viewport h1 {
+    font-size: 2.2rem !important;
+    margin-bottom: 12px !important;
+    line-height: 1.2 !important;
+  }
+
+  .slide-viewport h2 {
+    font-size: 1.8rem !important;
+    margin-bottom: 12px !important;
+    line-height: 1.2 !important;
+  }
+
+  .slide-viewport h3 {
+    font-size: 1.5rem !important;
+    margin-bottom: 12px !important;
+    line-height: 1.25 !important;
+  }
+
+  .slide-viewport h4 {
+    font-size: 1.15rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  .slide-viewport p {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Scale down decorative illustrations and background circles */
+  .slide-viewport svg[size="180"], 
+  .slide-viewport svg[size="160"], 
+  .slide-viewport svg[size="140"] {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .split-right div[style*="width: 320px"],
+  .split-right div[style*="width: 340px"],
+  .split-right div[style*="width: 280px"],
+  .split-right div[style*="width: 260px"],
+  .split-left div[style*="width: 260px"] {
+    width: 200px !important;
+    height: 200px !important;
+  }
+
+  /* Responsive Containers */
+  .cards-container {
+    flex-direction: column !important;
+    gap: 16px !important;
+    margin-top: 16px !important;
+  }
+
+  .cards-container .glass-card {
+    padding: 24px 20px !important;
+  }
+
+  /* Timeline Slide Adaptation */
+  .timeline-container {
+    flex-direction: column !important;
+    gap: 24px !important;
+    align-items: flex-start !important;
+    padding-left: 20px !important;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+    border-left: 3px solid var(--accent-orange) !important;
+  }
+
+  /* Hide the horizontal timeline path svg */
+  .slide-viewport svg[viewBox="0 0 1000 100"] {
+    display: none !important;
+  }
+
+  .timeline-step-item {
+    text-align: left !important;
+    padding: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+
+  .timeline-step-item:nth-child(even) {
+    margin-top: 0 !important;
+  }
+
+  .timeline-step-item > div:first-child {
+    margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Objection Interactive / Grid Slides */
+  .objection-grid-container {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .objection-grid-container .glass-card {
+    padding: 24px 20px !important;
+  }
+
+  .closing-cards-container {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  /* Quiz final screen styles */
+  .quiz-intro-stats {
+    flex-direction: column !important;
+    gap: 12px !important;
+    text-align: center !important;
+  }
+
+  .quiz-intro-stats > div {
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+
+  .quiz-question-column {
+    gap: 16px !important;
+  }
+
+  .quiz-explanation-column {
+    border-left: none !important;
+    border-top: 1px solid rgba(0,0,0,0.05) !important;
+    padding-left: 0 !important;
+    padding-top: 24px !important;
+    margin-top: 16px !important;
+  }
+
+  .quiz-results-box {
+    padding: 16px 24px !important;
+    margin-bottom: 24px !important;
+  }
+
+  /* Make quiz layouts scroll naturally */
+  .slide-viewport.responsive-mode .full-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+  }
+}
+

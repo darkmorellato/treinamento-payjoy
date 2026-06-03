@@ -251,7 +251,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
             )}
           </div>
 
-          <div style={{ display: 'flex', gap: '24px', width: '100%', marginTop: '10px' }}>
+          <div className="cards-container">
             {slide.cards?.map((card, idx) => {
               const CardIcon = card.icon ? iconMap[card.icon] : null;
               const cardAccentColor = stepColors[idx % stepColors.length];
@@ -365,18 +365,17 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
               />
             </svg>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', zIndex: 1 }}>
+            <div className="timeline-container">
               {slide.steps?.map((step, idx) => {
                 const stepColor = stepColors[idx % stepColors.length];
                 return (
                   <motion.div 
                     key={idx} 
                     variants={itemVariants}
+                    className="timeline-step-item"
                     style={{
                       flex: 1,
-                      textAlign: 'center',
                       padding: '0 14px',
-                      marginTop: idx % 2 === 1 ? '35px' : '0'
                     }}
                   >
                     <div style={{
@@ -697,7 +696,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
           </motion.span>
           <motion.h2 className="gradient-text-purple" variants={itemVariants} style={{ fontSize: '2.6rem', marginBottom: '40px' }}>{slide.title}</motion.h2>
 
-          <div style={{ display: 'flex', gap: '30px' }}>
+          <div className="objection-grid-container">
             {slide.objections?.map((obj, idx) => {
               const ObjIcon = obj.icon ? iconMap[obj.icon] : null;
               const cardAccentColor = idx === 0 ? 'var(--accent-green)' : 'var(--accent-orange)';
@@ -760,7 +759,7 @@ export const SlideRenderer: React.FC<SlideRendererProps> = ({ slide }) => {
               </p>
             </motion.div>
 
-            <div style={{ display: 'flex', gap: '16px' }}>
+            <div className="closing-cards-container">
               {slide.closingCards?.map((card, idx) => {
                 const CardIcon = card.icon ? iconMap[card.icon] : null;
                 const cardAccentColor = stepColors[idx % stepColors.length];

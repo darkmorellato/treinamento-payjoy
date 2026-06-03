@@ -490,43 +490,42 @@ strong {
     overflow: hidden !important;
   }
 
-  /* Make slide content area fit without vertical scrolling */
+  /* Make slide content area scrollable vertically as a safety fallback to prevent cuts */
   .slide-viewport.responsive-mode .slide-content-area {
     flex: 1;
-    overflow-y: hidden !important; /* Block vertical scroll */
-    padding-top: 60px !important; /* Avoid overlap with absolute top utilities */
-    padding-bottom: 68px !important; /* Avoid overlap with absolute bottom controls */
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 64px !important; /* Avoid overlap with absolute top utilities */
+    padding-bottom: 72px !important; /* Avoid overlap with absolute bottom controls */
+    display: block !important;
   }
 
-  /* Layout wrappers fit 100% height and align center */
+  /* Stack split layouts vertically and let them flow naturally */
   .split-layout {
     flex-direction: column !important;
-    height: 100% !important;
+    height: auto !important;
     width: 100% !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
   }
 
   .split-left, .split-right {
-    flex: 1 !important;
+    flex: none !important;
     width: 100% !important;
-    height: 100% !important;
-    padding: 1.25rem 1.25rem !important;
+    height: auto !important;
+    padding: 1rem 0.5rem !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
   }
 
-  /* Reduce absolute padding in full layouts */
+  /* Reduce absolute padding in full layouts and let them flow naturally */
   .full-layout {
-    padding: 1.25rem 1.25rem !important;
-    height: 100% !important;
+    padding: 1.25rem 0.75rem !important;
+    height: auto !important;
     width: 100% !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
   }
 
   /* Reposition Utilities to bottom-left on mobile */
@@ -601,7 +600,7 @@ strong {
 
   /* Responsive Headings Typography (Overriding inline styles) */
   .slide-viewport h1 {
-    font-size: 1.8rem !important;
+    font-size: 1.7rem !important;
     margin-bottom: 8px !important;
     line-height: 1.2 !important;
   }
@@ -613,7 +612,7 @@ strong {
   }
 
   .slide-viewport h3 {
-    font-size: 1.25rem !important;
+    font-size: 1.2rem !important;
     margin-bottom: 8px !important;
     line-height: 1.25 !important;
   }
@@ -624,26 +623,73 @@ strong {
   }
 
   .slide-viewport p {
-    font-size: 0.85rem !important;
-    line-height: 1.4 !important;
+    font-size: 0.9rem !important;
+    line-height: 1.45 !important;
   }
 
-  /* Hide decorative illustrations on mobile to save vertical height */
+  /* Compact illustrations on mobile, displayed at the top of content columns */
   .split-left.split-35, 
   .split-left.split-40, 
-  .split-right.split-40,
-  .slide-header-icon {
-    display: none !important;
+  .split-right.split-40 {
+    display: flex !important;
+    height: 100px !important;
+    padding: 0 !important;
+    margin-bottom: 12px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    order: -1 !important; /* Put illustration on top of text */
+    flex: none !important;
+    width: 100% !important;
   }
 
-  /* Text columns expand to full width when illustrations are hidden */
+  /* Scale down illustrations */
+  .split-left.split-35 svg, 
+  .split-left.split-40 svg, 
+  .split-right.split-40 svg {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  /* Scale down background circles */
+  .split-left.split-35 div[style*="width:"],
+  .split-left.split-40 div[style*="width:"],
+  .split-right.split-40 div[style*="width:"] {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  /* Header layout and header icon on mobile (Slides 3 and 4) */
+  .slide-header-layout {
+    flex-direction: row !important; /* side by side */
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 16px !important;
+    height: auto !important;
+  }
+
+  .slide-header-icon {
+    display: flex !important;
+    flex: 0 0 50px !important;
+    width: 50px !important;
+    height: 50px !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .slide-header-icon svg {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  /* Text columns expand to full width when stacked */
   .split-left.split-60, 
   .split-right.split-60, 
   .split-right.split-65,
   .split-left.split-55,
   .split-right.split-45 {
     width: 100% !important;
-    flex: 1 !important;
+    flex: none !important;
+    height: auto !important;
   }
 
   /* Mobile Horizontal Carousels */
@@ -783,11 +829,11 @@ strong {
 
   /* Objection Interactive / Grid Slides */
   .objection-split-layout {
-    padding: 1rem 1.25rem !important;
-    height: 100% !important;
+    padding: 1rem 0.5rem !important;
+    height: auto !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
   }
 
   .objection-options-container {
@@ -920,7 +966,7 @@ strong {
   .slide-viewport.responsive-mode .full-layout {
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
   }
 }
 

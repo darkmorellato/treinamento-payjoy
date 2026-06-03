@@ -246,7 +246,7 @@ export default function App() {
       {/* 16:9 Viewport */}
       <div 
         className={`slide-viewport ${isResponsive ? 'responsive-mode' : ''}`}
-        style={isResponsive ? {} : { transform: `scale(${scale})` }}
+        style={isResponsive ? {} : { transform: `translate(-50%, -50%) scale(${scale})` }}
       >
         {/* Top Utility Controls (Music & Notes) - Hidden in Quiz Mode */}
         {!isQuizMode && (

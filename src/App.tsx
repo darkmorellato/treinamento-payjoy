@@ -90,8 +90,6 @@ export default function App() {
   // Auto-scale handler to perfectly frame 16:9 slides on any screen size
   useEffect(() => {
     const handleResize = () => {
-      const targetWidth = 1280;
-      const targetHeight = 720;
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
 
@@ -161,9 +159,11 @@ export default function App() {
       if (diffX > 50) {
         // Swipe left -> Next
         handleNext();
+        if (!isPlaying) setIsPlaying(true);
       } else if (diffX < -50) {
         // Swipe right -> Prev
         handlePrev();
+        if (!isPlaying) setIsPlaying(true);
       }
     }
 

@@ -18,6 +18,10 @@ export default function App() {
   const [scale, setScale] = useState(1);
   const [isResponsive, setIsResponsive] = useState(false);
 
+  // Touch Swipe State
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
+
   // Background Audio State - Default to true to trigger autoplay
   const [isPlaying, setIsPlaying] = useState(true);
   const [audio] = useState(() => {
@@ -128,6 +132,36 @@ export default function App() {
     }
   }, [currentIndex]);
 
+  // Touch swipe support for mobile devices
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (isQuizMode) return;
+    setTouchStartX(e.targetTouches[0].clientX);
+    setTouchStartY(e.targetTouches[0].clientY);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null || touchStartY === null || isQuizMode) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+
+    const diffX = touchStartX - touchEndX;
+    const diffY = touchStartY - touchEndY;
+
+    // Detect horizontal swipe (horizontal displacement must be greater than vertical displacement)
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 50) {
+        // Swipe left -> Next
+        handleNext();
+      } else if (diffX < -50) {
+        // Swipe right -> Prev
+        handlePrev();
+      }
+    }
+
+    setTouchStartX(null);
+    setTouchStartY(null);
+  };
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -197,7 +231,11 @@ export default function App() {
   };
 
   return (
-    <div className="presentation-container">
+    <div 
+      className="presentation-container"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Background blobs for premium glassmorphism effect */}
       <div className="blob-container">
         <div className="blob blob-1"></div>

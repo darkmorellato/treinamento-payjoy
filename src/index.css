@@ -521,11 +521,13 @@ strong {
     min-height: 100%;
   }
 
-  /* Reposition Top & Bottom overlays */
+  /* Reposition Utilities to bottom-left on mobile */
   .utilities-overlay {
     position: absolute !important;
-    top: 16px !important;
-    right: 16px !important;
+    top: auto !important;
+    bottom: 20px !important;
+    left: 16px !important;
+    right: auto !important;
     gap: 8px !important;
     height: auto !important;
     background: none !important;
@@ -535,6 +537,7 @@ strong {
     z-index: 100 !important;
   }
 
+  /* Reposition Navigation Controls to bottom-right on mobile */
   .controls-overlay {
     position: absolute !important;
     bottom: 20px !important;
@@ -554,14 +557,15 @@ strong {
     display: flex !important;
   }
 
-  /* Counter position on mobile */
+  /* Reposition Slide Counter to top-center on mobile */
   .slide-number {
     position: absolute !important;
-    bottom: 30px !important;
-    left: 20px !important;
-    transform: none !important;
-    font-size: 0.9rem !important;
-    font-weight: 600 !important;
+    top: 16px !important;
+    bottom: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
     color: var(--text-light) !important;
     opacity: 0.8 !important;
     z-index: 99 !important;

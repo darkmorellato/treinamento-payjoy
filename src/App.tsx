@@ -209,22 +209,22 @@ export default function App() {
   // Slide transition variants for smooth sliding
   const slideVariants: Variants = {
     enter: (dir: number) => ({
-      x: dir > 0 ? 1280 : -1280,
+      x: dir > 0 ? 300 : -300,
       opacity: 0,
     }),
     center: {
       x: 0,
       opacity: 1,
       transition: {
-        x: { type: 'spring' as const, stiffness: 260, damping: 30 },
+        x: { type: 'tween' as const, ease: [0.25, 1, 0.5, 1], duration: 0.4 },
         opacity: { duration: 0.3 }
       }
     },
     exit: (dir: number) => ({
-      x: dir < 0 ? 1280 : -1280,
+      x: dir < 0 ? 300 : -300,
       opacity: 0,
       transition: {
-        x: { type: 'spring' as const, stiffness: 260, damping: 30 },
+        x: { type: 'tween' as const, ease: [0.25, 1, 0.5, 1], duration: 0.4 },
         opacity: { duration: 0.3 }
       }
     })

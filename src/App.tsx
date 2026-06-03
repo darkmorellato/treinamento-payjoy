@@ -99,11 +99,20 @@ export default function App() {
       setIsResponsive(isMobileOrTablet);
 
       if (isMobileOrTablet) {
-        setScale(1);
+        // Calculate scale to fit width and height with padding for a 9:16 canvas (720x1280)
+        const targetWidthMobile = 720;
+        const targetHeightMobile = 1280;
+        const scaleX = windowWidth / targetWidthMobile;
+        const scaleY = windowHeight / targetHeightMobile;
+        // Use 0.95 to add a tiny bit of padding around the slide
+        const nextScale = Math.min(scaleX, scaleY) * 0.98;
+        setScale(Math.max(nextScale, 0.15));
       } else {
-        // Calculate scale to fit width and height with padding
-        const scaleX = windowWidth / targetWidth;
-        const scaleY = windowHeight / targetHeight;
+        // Calculate scale to fit width and height with padding for a 16:9 canvas (1280x720)
+        const targetWidthDesktop = 1280;
+        const targetHeightDesktop = 720;
+        const scaleX = windowWidth / targetWidthDesktop;
+        const scaleY = windowHeight / targetHeightDesktop;
         const nextScale = Math.min(scaleX, scaleY) * 0.95;
         setScale(Math.max(nextScale, 0.15));
       }
@@ -243,10 +252,10 @@ export default function App() {
         <div className="blob blob-3"></div>
       </div>
 
-      {/* 16:9 Viewport */}
+      {/* 16:9 Viewport (Desktop) or 9:16 Viewport (Mobile) */}
       <div 
         className={`slide-viewport ${isResponsive ? 'responsive-mode' : ''}`}
-        style={isResponsive ? {} : { transform: `translate(-50%, -50%) scale(${scale})` }}
+        style={{ transform: `translate(-50%, -50%) scale(${scale})` }}
       >
         {/* Top Utility Controls (Music & Notes) - Hidden in Quiz Mode */}
         {!isQuizMode && (
